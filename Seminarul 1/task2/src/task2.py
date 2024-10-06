@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from os import path
+from pathlib import Path
 from nltk.corpus import wordnet
 from random import choice
 
@@ -13,7 +15,11 @@ def main():
 def pick_word():
     words: list[str] = []
 
-    with open("../static/wordlist.txt", "r", encoding="utf-8") as file:
+    with open(
+        path.join(Path(__file__).parent.resolve(), "../static/wordlist.txt"),
+        "r",
+        encoding="utf-8",
+    ) as file:
         for line in file.readlines():
             words.append(line.strip().lower())
 
