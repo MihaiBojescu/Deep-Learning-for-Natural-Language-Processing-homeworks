@@ -1,0 +1,9 @@
+
+Sentence: Flying planes can be dangerous.
+(Flying (dangerous. planes can be))
+
+Sentence: The parents of the bride and the groom were flying.
+(and (of The parents) the bride (flying. the groom were))
+
+Sentence: The groom loves dangerous planes more than the bride.
+(than The groom loves dangerous planes more (bride. the))
