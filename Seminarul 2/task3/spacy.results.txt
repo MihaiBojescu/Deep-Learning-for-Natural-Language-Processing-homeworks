@@ -1,0 +1,33 @@
+
+Sentence: Flying planes can be dangerous.
+Flying       amod         planes       NOUN  
+planes       nsubj        be           AUX   
+can          aux          be           AUX   
+be           ROOT         be           AUX   
+dangerous    acomp        be           AUX   
+.            punct        be           AUX   
+
+Sentence: The parents of the bride and the groom were flying.
+The          det          parents      NOUN  
+parents      nsubj        flying       VERB  
+of           prep         parents      NOUN  
+the          det          bride        NOUN  
+bride        pobj         of           ADP   
+and          cc           parents      NOUN  
+the          det          groom        NOUN  
+groom        conj         parents      NOUN  
+were         aux          flying       VERB  
+flying       ROOT         flying       VERB  
+.            punct        flying       VERB  
+
+Sentence: The groom loves dangerous planes more than the bride.
+The          det          groom        NOUN  
+groom        nsubj        loves        VERB  
+loves        ROOT         loves        VERB  
+dangerous    amod         planes       NOUN  
+planes       dobj         loves        VERB  
+more         advmod       loves        VERB  
+than         prep         more         ADJ   
+the          det          bride        NOUN  
+bride        pobj         than         ADP   
+.            punct        loves        VERB  
