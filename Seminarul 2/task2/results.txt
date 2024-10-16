@@ -1,0 +1,57 @@
+
+Sentence: Flying planes can be dangerous
+
+Parse Tree 1:
+(S
+  (NP (ADJ Flying) (N planes))
+  (VP (AUX can) (BE be) (ADJ dangerous)))
+
+Parse Tree 2:
+(S
+  (VP (V Flying))
+  (NP (N planes))
+  (VP (AUX can) (BE be) (ADJ dangerous)))
+
+Sentence: The parents of the bride and the groom were flying
+
+Parse Tree 1:
+(S
+  (NP
+    (NP
+      (NP (DET The) (N parents))
+      (PP (P of) (NP (DET the) (N bride))))
+    (CONJ and)
+    (NP (DET the) (N groom)))
+  (VP (BE were) (VP (V flying))))
+
+Parse Tree 2:
+(S
+  (NP
+    (NP (DET The) (N parents))
+    (PP
+      (P of)
+      (NP
+        (NP (DET the) (N bride))
+        (CONJ and)
+        (NP (DET the) (N groom)))))
+  (VP (BE were) (VP (V flying))))
+
+Sentence: The groom loves dangerous planes more than the bride
+
+Parse Tree 1:
+(S
+  (NP (DET The) (N groom))
+  (VP
+    (V loves)
+    (NP
+      (NP (NP (ADJ dangerous) (N planes)) (CP (COMP more)))
+      (PP (P than) (NP (DET the) (N bride))))))
+
+Parse Tree 2:
+(S
+  (NP (DET The) (N groom))
+  (VP
+    (V loves)
+    (NP
+      (NP (ADJ dangerous) (N planes))
+      (CP (COMP more) (PP (P than) (NP (DET the) (N bride)))))))
