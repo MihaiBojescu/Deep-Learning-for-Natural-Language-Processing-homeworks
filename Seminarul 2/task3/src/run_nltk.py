@@ -16,7 +16,7 @@ def main():
         print(f"\nSentence: {sentence}")
 
         for parse_tree in parse_trees:
-            print(parse_tree.tree())
+            parse_tree.tree().pretty_print()
 
 
 if __name__ == "__main__":

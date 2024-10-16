@@ -1,0 +1,98 @@
+
+Sentence: Flying planes can be dangerous
+
+Parse Tree 1:
+                   S               
+         __________|___             
+        NP             VP          
+   _____|____       ___|______      
+ ADJ         N    AUX  BE    ADJ   
+  |          |     |   |      |     
+Flying     planes can  be dangerous
+
+None
+
+Parse Tree 2:
+               S               
+   ____________|___             
+  VP     NP        VP          
+  |      |      ___|______      
+  V      N    AUX  BE    ADJ   
+  |      |     |   |      |     
+Flying planes can  be dangerous
+
+None
+
+Sentence: The parents of the bride and the groom were flying
+
+Parse Tree 1:
+                              S                                     
+                      ________|____________________________          
+                     NP                                    |        
+                  ___|______________________               |         
+                 NP                |        |              |        
+      ___________|___              |        |              |         
+     |               PP            |        |              VP       
+     |            ___|___          |        |          ____|____     
+     NP          |       NP        |        NP        |         VP  
+  ___|_____      |    ___|____     |     ___|____     |         |    
+DET        N     P  DET       N   CONJ DET       N    BE        V   
+ |         |     |   |        |    |    |        |    |         |    
+The     parents  of the     bride and  the     groom were     flying
+
+None
+
+Parse Tree 2:
+                              S                                     
+                      ________|____________________________          
+                     NP                                    |        
+      _______________|________                             |         
+     |                        PP                           |        
+     |            ____________|____                        |         
+     |           |                 NP                      VP       
+     |           |        _________|________           ____|____     
+     NP          |       NP        |        NP        |         VP  
+  ___|_____      |    ___|____     |     ___|____     |         |    
+DET        N     P  DET       N   CONJ DET       N    BE        V   
+ |         |     |   |        |    |    |        |    |         |    
+The     parents  of the     bride and  the     groom were     flying
+
+None
+
+Sentence: The groom loves dangerous planes more than the bride
+
+Parse Tree 1:
+          S                                                     
+      ____|_____________                                         
+     |                  VP                                      
+     |           _______|_________________                       
+     |          |                         NP                    
+     |          |                    _____|_________             
+     |          |                   NP              PP          
+     |          |               ____|_____      ____|___         
+     NP         |              NP         CP   |        NP      
+  ___|____      |        ______|____      |    |     ___|____    
+DET       N     V      ADJ          N    COMP  P   DET       N  
+ |        |     |       |           |     |    |    |        |   
+The     groom loves dangerous     planes more than the     bride
+
+None
+
+Parse Tree 2:
+          S                                                         
+      ____|_____________                                             
+     |                  VP                                          
+     |           _______|_________________                           
+     |          |                         NP                        
+     |          |               __________|_________                 
+     |          |              |                    CP              
+     |          |              |           _________|___             
+     |          |              |          |             PP          
+     |          |              |          |     ________|___         
+     NP         |              NP         |    |            NP      
+  ___|____      |        ______|____      |    |         ___|____    
+DET       N     V      ADJ          N    COMP  P       DET       N  
+ |        |     |       |           |     |    |        |        |   
+The     groom loves dangerous     planes more than     the     bride
+
+None
