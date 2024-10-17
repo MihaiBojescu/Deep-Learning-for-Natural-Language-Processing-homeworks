@@ -1,0 +1,27 @@
+4) Describe an application which needs syntactic and/or dependency parsing. Explain briefly why. (1/2 pag.)
+
+A. The syntactic parsing of a sentence consists of  finding the correct syntactic structure of that sentence in a given formalism/grammar.
+
+B. -> Dependency Parsing is more straightforward– Parsing can be reduced to labeling each token pair wi and 
+wj.
+     -> Dependency structure independent of word order – Suitable for free word order languages (like Indian 
+languages)
+
+So, syntactic parsing looks at hierarchical structures, while dependency parsing emphasizes relationships between individual words.
+
+An exmaple of an application that utilizes syntactic and dependency parsing is a machine translation system.
+Parsing is needed in order to satisfy different conditions:
+1. Sentence structure analysis: syntactic parsing allows the system to analyze the grammatical structure of sentences in the source language, 
+which is essential for accurately translating them into the target language while maintaining meaning.
+
+2. Understanding word relationships: dependency parsing helps the system to identify relationships between words, enabling it to produce 
+more coherent translations. For example distinguishing between subjects, verbs, and objects ensures that the translated sentence reflects the 
+correct relationships.
+
+3. Handling ambiguity: languages often have ambiguous phrases. Parsing helps disambiguate meanings based on context, which is vital for 
+producing translations that make in the target language.
+
+Another examples where syntactic and dependency parsing are needed are:
+I. A chatbot designed for customer support
+II. Automated resume screening software
+III. Snetiment analysis tools
