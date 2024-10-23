@@ -6,11 +6,11 @@ def main():
     corpus = read_corpus()
 
     smoothing_function = LaPlaceSmoothing()
-    trigrams = NGrams(2, smoothing_function)
+    trigrams = NGrams(3, smoothing_function)
 
-    result = trigrams.generate(corpus)
+    result = trigrams.generate_ngrams(corpus)
 
-    pprint(result)
+    pprint(result.smoothed_frequencies)
 
 
 def read_corpus() -> list[str]:

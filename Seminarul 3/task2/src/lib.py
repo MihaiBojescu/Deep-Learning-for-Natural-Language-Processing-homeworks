@@ -1,4 +1,5 @@
 from collections import defaultdict
+from dataclasses import dataclass
 from re import sub
 from typing import Callable
 
@@ -19,6 +20,14 @@ class LaPlaceSmoothing:
         return smoothed_ngram_frequencies
 
 
+@dataclass
+class NGramResults:
+    ngrams: list[tuple[str, ...]]
+    vocabulary_size: int
+    frequencies: defaultdict[tuple[str, ...], float]
+    smoothed_frequencies: defaultdict[tuple[str, ...], float]
+
+
 class NGrams:
     __n: int
     __smoothing_function: Callable[[defaultdict[tuple[str, ...], int], int], float]
@@ -31,14 +40,20 @@ class NGrams:
         self.__n = n
         self.__smoothing_function = smoothing_function
 
-    def generate(self, corpus: list[str]) -> defaultdict[tuple[str, ...], float]:
+    def generate_ngrams(self, corpus: list[str]) -> NGramResults:
+        ngrams = self.__generate_corpus_ngrams(corpus)
         ngram_frequencies = self.__calculate_ngram_frequencies(corpus)
         vocabulary_size = self.__calculate_vocabulary_size(corpus)
         smoothed_ngram_frequencies = self.__smoothing_function(
             ngram_frequencies, vocabulary_size
         )
 
-        return smoothed_ngram_frequencies
+        return NGramResults(
+            ngrams=ngrams,
+            vocabulary_size=vocabulary_size,
+            frequencies=ngram_frequencies,
+            smoothed_frequencies=smoothed_ngram_frequencies,
+        )
 
     def __calculate_vocabulary_size(self, corpus: list[str]) -> int:
         return len(
@@ -48,6 +63,16 @@ class NGrams:
                 for word in self.__preprocess(sentence).split()
             )
         )
+
+    def __generate_corpus_ngrams(self, corpus: list[str]) -> list[tuple[str, ...]]:
+        result: list[tuple[str, ...]] = []
+
+        for sentence in corpus:
+            preprocessed_sentence = self.__preprocess(sentence)
+            ngrams = self.__generate_ngrams(preprocessed_sentence)
+            result.extend(ngrams)
+
+        return list(set(result))
 
     def __calculate_ngram_frequencies(
         self, corpus: list[str]
