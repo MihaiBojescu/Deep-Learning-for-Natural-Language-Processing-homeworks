@@ -6,7 +6,7 @@ from typing import Callable
 class LaPlaceSmoothing:
     def __call__(
         self, ngram_frequencies: defaultdict[tuple[str, ...], int], vocabulary_size: int
-    ) -> float:
+    ) -> defaultdict[tuple[str, ...], float]:
         smoothed_ngram_frequencies: defaultdict[tuple[str, ...], float] = defaultdict(
             float
         )
