@@ -13,7 +13,7 @@ def main():
 
     probability = calculate_probability(corpus_result, sentence_result)
 
-    print(f"Probability: {probability:.20f}")
+    print(f"Probability: {probability}")
 
 
 def read_corpus() -> list[str]:
@@ -31,6 +31,7 @@ def calculate_probability(
     probability = 1.0
 
     for ngram in sentence_result.ngrams:
+
         if ngram in corpus_result.smoothed_frequencies:
             probability *= corpus_result.smoothed_frequencies[ngram]
         else:
