@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from time import sleep
-from os import mkdir
+from os import makedirs
 import wikipediaapi
 
 
@@ -31,16 +31,13 @@ def scrape():
         extract_format=wikipediaapi.ExtractFormat.WIKI,
     )
 
-    try:
-        mkdir("./data")
-    except:
-        pass
+    makedirs("./data/raw", exist_ok=True)
 
     for topic in topics:
         page = wiki.page(topic)
         sleep(1)
 
-        with open(f"./data/{topic}.txt", "w", encoding="utf-8") as file:
+        with open(f"./data/raw/{topic}.txt", "w", encoding="utf-8") as file:
             file.write(page.text)
 
 
