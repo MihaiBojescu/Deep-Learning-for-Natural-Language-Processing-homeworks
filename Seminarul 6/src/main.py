@@ -2,29 +2,64 @@
 
 from os import listdir
 from random import choices
+from re import match
 from gensim import downloader
+from numpy import ndarray
 
 
 def main():
-    glove_vectors = downloader.load("glove-wiki-gigaword-50")
-    word2vec_vectors = downloader.load("word2vec-google-news-300")
+    dataset = read()
+    words = pick_words(dataset, 20)
 
-    words = pick_words()
+    print(words)
+
+    for model in [
+        downloader.load("glove-wiki-gigaword-50"),
+        downloader.load("word2vec-google-news-300"),
+    ]:
+        vectorized_words = vectorize(model, words)
+        dimensions = pick_dimensions(vectorized_words)
+
+        print(vectorized_words)
+        print(dimensions)
 
 
-def pick_words():
-    docs: list[str] = []
+def read():
+    dataset: str = ""
 
     for filename in listdir("./data"):
         with open(f"./data/{filename}", "r", encoding="utf-8") as file:
-            docs.extend(file.read())
+            dataset += file.read()
 
-    words = choices(docs, k=20)
+    return dataset
+
+
+def pick_words(dataset: str, k=20):
+    words: list[str] = []
+
+    for word in dataset.lower().split(" "):
+        matches = match(r"(\w+)", word)
+
+        if matches is None or len(matches.groups()) != 1:
+            continue
+
+        words.append(word)
+
+    picked_words = choices(words, k=k)
+    return picked_words
+
+
+def vectorize(model, words: list[str]) -> list[ndarray]:
+    result: list[ndarray] = []
+
+    for word in words:
+        result.append(model[word])
+
     return words
 
 
-def vectorize(word: str):
-    pass
+def pick_dimensions(vectorized_words, k=3):
+    return choices(range(0, vectorized_words[0].shape[0]), k=k)
 
 
 if __name__ == "__main__":
