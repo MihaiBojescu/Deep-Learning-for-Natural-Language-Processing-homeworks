@@ -1,3 +1,4 @@
+from matplotlib import pyplot as plt
 from numpy import ndarray
 from sklearn.decomposition import TruncatedSVD
 
@@ -18,7 +19,27 @@ def show(model: TruncatedSVD, matrix: ndarray, terms: ndarray):
     print("SVD Topics")
     for i, topic in enumerate(model.components_):
         top_words = [terms[index] for index in topic.argsort()[-10:]]
-        print(f"SVD Topic {i+1}: {', '.join(top_words)}")
+        print(f"SVD Topic {i + 1}: {', '.join(top_words)}")
 
     print("SVD Matrix")
     print(matrix)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection="3d")
+    ax.scatter(
+        matrix[:, 0],
+        matrix[:, 1],
+        matrix[:, 2],
+    )
+
+    for i in range(matrix.shape[0]):
+        ax.text(
+            matrix[i, 0],
+            matrix[i, 1],
+            matrix[i, 2],
+            f"SVD Topic {i + 1}",
+            size=12,
+            zorder=1,
+        )
+
+    plt.show()

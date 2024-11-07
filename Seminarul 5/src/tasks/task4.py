@@ -1,3 +1,4 @@
+from matplotlib import pyplot as plt
 from numpy import ndarray
 from sklearn.decomposition import LatentDirichletAllocation
 
@@ -22,3 +23,23 @@ def show(model: LatentDirichletAllocation, matrix: ndarray, terms: ndarray):
 
     print("LDA Matrix")
     print(matrix)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection="3d")
+    ax.scatter(
+        matrix[:, 0],
+        matrix[:, 1],
+        matrix[:, 2],
+    )
+
+    for i in range(matrix.shape[0]):
+        ax.text(
+            matrix[i, 0],
+            matrix[i, 1],
+            matrix[i, 2],
+            f"LDA Topic {i + 1}",
+            size=12,
+            zorder=1,
+        )
+
+    plt.show()
