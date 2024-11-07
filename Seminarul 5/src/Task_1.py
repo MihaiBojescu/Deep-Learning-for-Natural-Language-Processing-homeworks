@@ -8,6 +8,8 @@ import os
 import re
 import numpy as np
 import warnings
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 warnings.filterwarnings("ignore")
 
 
@@ -93,6 +95,28 @@ def displayDocumentTopicMatrix(nmf_matrix):
     print(nmf_matrix)
 
 
+def plot3D(lsa_matrix, num_topics=5):
+    # Assuming lsa_matrix is the result of the LSA transformation (after dimensionality reduction)
+    # We will visualize the first three components (topics) in a 3D space.
+
+    # Only take the first 3 components for the plot
+    X = lsa_matrix[:, :3]
+
+    # Create a 3D scatter plot
+    fig = plt.figure(figsize=(10, 7))
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.scatter(X[:, 0], X[:, 1], X[:, 2], c='r', marker='o')
+
+    ax.set_xlabel('Topic 1')
+    ax.set_ylabel('Topic 2')
+    ax.set_zlabel('Topic 3')
+
+    ax.set_title('3D Visualization of Document-Topic Relationships')
+
+    plt.show()
+
+
 def Task_1():
     lemmatizer = WordNetLemmatizer()
 
@@ -167,6 +191,9 @@ def Task_2():
 
             # Step 5: Display the Document-Topic matrix
             displayDocumentTopicMatrix(lsa_matrix)
+
+            # Step 6: Plot the 3D representation of the Document-Topic matrix
+            plot3D(lsa_matrix)
 
         print("--------------------------------------------------\n\n")
 
@@ -251,6 +278,6 @@ def Task_4():
 
 if __name__ == "__main__":
     # Task_1()
-    # Task_2()
+    Task_2()
     # Task_3()
-    Task_4()
+    # Task_4()
