@@ -9,7 +9,7 @@ import re
 import numpy as np
 import warnings
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+
 warnings.filterwarnings("ignore")
 
 
@@ -95,7 +95,7 @@ def displayDocumentTopicMatrix(nmf_matrix):
     print(nmf_matrix)
 
 
-def plot3D(lsa_matrix, num_topics=5):
+def plot3D(lsa_matrix, document_names, num_topics=5):
     # Assuming lsa_matrix is the result of the LSA transformation (after dimensionality reduction)
     # We will visualize the first three components (topics) in a 3D space.
 
@@ -107,6 +107,10 @@ def plot3D(lsa_matrix, num_topics=5):
     ax = fig.add_subplot(111, projection='3d')
 
     ax.scatter(X[:, 0], X[:, 1], X[:, 2], c='r', marker='o')
+
+    # Add labels to each point (document)
+    for i, name in enumerate(document_names):
+        ax.text(X[i, 0], X[i, 1], X[i, 2], name[:-4], size=8, zorder=1)
 
     ax.set_xlabel('Topic 1')
     ax.set_ylabel('Topic 2')
@@ -163,7 +167,6 @@ def Task_1():
 # latent semantic structure of the text data. One of the most common ways to perform LSA is by using Singular Value
 # Decomposition (SVD), which decomposes the TF-IDF matrix into a set of matrices that capture the most significant
 # patterns in the data.
-
 def Task_2():
     # Get the list of all files and directories
     path = "../data/raw"
@@ -198,6 +201,41 @@ def Task_2():
         print("--------------------------------------------------\n\n")
 
 
+def Task_2AllDocs():
+    # Get the list of all files and directories
+    path = "../data/raw"
+    dir_list = os.listdir(path)
+
+    document = []
+    document_names = []  # List to store document names (or identifiers)
+
+    for file in dir_list:
+        with open(os.path.join(path, file), "r", encoding="utf-8") as f:
+            content = f.read()
+
+            # Step 1: Define the text document
+            document.append(str(content))
+            document_names.append(file)  # Store the document name
+
+    # Step 2: Perform TF-IDF Vectorization
+    tfidf_matrix, terms = tfIdfVectorization(document)
+
+    # Step 3: Perform Latent Semantic Analysis (LSA) with 5 topics
+    num_topics = 5
+    lsa_model, lsa_matrix = performLSA(tfidf_matrix, num_topics=num_topics)
+
+    # Step 4: Display topics (terms associated with each topic)
+    displayTopics(lsa_model, terms, top_n=5)
+
+    # Step 5: Display the Document-Topic matrix
+    displayDocumentTopicMatrix(lsa_matrix)
+
+    # Step 6: Plot the 3D representation of the Document-Topic matrix with labels
+    plot3D(lsa_matrix, document_names)
+
+    print("--------------------------------------------------\n\n")
+
+
 # The negative values in the document-topic matrix can occur due to the nature of the Singular Value Decomposition
 # (SVD) algorithm. SVD works by approximating the original matrix with lower-rank matrices, and sometimes the matrix
 # components (singular values, topic loadings, etc.) can have negative values. This is not unusual, especially for
@@ -229,7 +267,7 @@ def Task_3():
             # Step 2: Perform TF-IDF Vectorization
             tfidf_matrix, terms = tfIdfVectorization(document)
 
-            # Step 3: Perform Latent Semantic Analysis (LSA) with 5 topics
+            # Step 3: Perform NMF with 5 topics
             num_topics = 5
             nmf_model, nmf_matrix = performNMF(tfidf_matrix, num_topics=num_topics)
 
@@ -240,6 +278,41 @@ def Task_3():
             displayDocumentTopicMatrix(nmf_matrix)
 
         print("--------------------------------------------------\n\n")
+
+
+def Task_3AllDocs():
+    # Get the list of all files and directories
+    path = "../data/raw"
+    dir_list = os.listdir(path)
+
+    document = []
+    document_names = []  # List to store document names (or identifiers)
+
+    for file in dir_list:
+        with open(os.path.join(path, file), "r", encoding="utf-8") as f:
+            content = f.read()
+
+            # Step 1: Define the text document
+            document.append(str(content))
+            document_names.append(file)  # Store the document name
+
+    # Step 2: Perform TF-IDF Vectorization
+    tfidf_matrix, terms = tfIdfVectorization(document)
+
+    # Step 3: Perform NMF with 5 topics
+    num_topics = 5
+    nmf_model, nmf_matrix = performNMF(tfidf_matrix, num_topics=num_topics)
+
+    # Step 4: Display topics (terms associated with each topic)
+    displayTopics(nmf_model, terms, top_n=5)
+
+    # Step 5: Display the Document-Topic matrix
+    displayDocumentTopicMatrix(nmf_matrix)
+
+    # Step 6: Plot the 3D representation of the Document-Topic matrix with labels
+    plot3D(nmf_matrix, document_names)
+
+    print("--------------------------------------------------\n\n")
 
 
 # Latent Dirichlet Allocation (LDA) is a popular probabilistic model used for topic modeling. LDA works differently
@@ -276,8 +349,46 @@ def Task_4():
         print("--------------------------------------------------\n\n")
 
 
+def Task_4AllDocs():
+    # Get the list of all files and directories
+    path = "../data/raw"
+    dir_list = os.listdir(path)
+
+    document = []
+    document_names = []  # List to store document names (or identifiers)
+
+    for file in dir_list:
+        with open(os.path.join(path, file), "r", encoding="utf-8") as f:
+            content = f.read()
+
+            # Step 1: Define the text document
+            document.append(str(content))
+            document_names.append(file)  # Store the document name
+
+    # Step 2: Perform TF-IDF Vectorization
+    tfidf_matrix, terms = tfIdfVectorization(document)
+
+    # Step 3: Perform NMF with 5 topics
+    num_topics = 5
+    lda_model, lda_matrix = perform_lda(tfidf_matrix, num_topics=num_topics)
+
+    # Step 4: Display topics (terms associated with each topic)
+    displayTopics(lda_model, terms, top_n=5)
+
+    # Step 5: Display the Document-Topic matrix
+    displayDocumentTopicMatrix(lda_matrix)
+
+    # Step 6: Plot the 3D representation of the Document-Topic matrix with labels
+    plot3D(lda_matrix, document_names)
+
+    print("--------------------------------------------------\n\n")
+
+
 if __name__ == "__main__":
     # Task_1()
-    Task_2()
+    # Task_2()
+    # Task_2AllDocs()
     # Task_3()
+    Task_3AllDocs()
     # Task_4()
+    # Task_4AllDocs()
