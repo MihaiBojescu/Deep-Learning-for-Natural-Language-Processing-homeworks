@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from os import listdir
-from random import choices
+from random import sample
 from re import match
 from gensim import downloader
 from numpy import ndarray
@@ -45,7 +45,7 @@ def pick_words(dataset: str, k=20):
 
         words.append(matches[0])
 
-    picked_words = choices(words, k=k)
+    picked_words = sample(words, k=k)
     return picked_words
 
 
@@ -59,7 +59,7 @@ def vectorize(model, words: list[str]) -> list[ndarray]:
 
 
 def pick_dimensions(vectorized_words, k=3):
-    return choices(range(0, vectorized_words[0].shape[0]), k=k)
+    return sample(range(0, vectorized_words[0].shape[0]), k=k)
 
 
 if __name__ == "__main__":
