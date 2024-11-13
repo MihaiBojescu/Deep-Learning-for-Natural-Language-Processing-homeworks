@@ -6,7 +6,7 @@ import nltk
 nltk.download("stopwords")
 
 from util import make_dirs, read, pick_words, vectorize, pick_dimensions
-from task1 import plot_random_dimensions, plot_pca
+from task1 import plot_random_dimensions, plot_pca, plot_tsne
 
 
 def main():
@@ -27,6 +27,7 @@ def main():
 
         plot_random_dimensions(model_name, words, vectorized_words, dimensions)
         plot_pca(model_name, words, vectorized_words)
+        plot_tsne(model_name, words, vectorized_words)
 
 
 if __name__ == "__main__":
