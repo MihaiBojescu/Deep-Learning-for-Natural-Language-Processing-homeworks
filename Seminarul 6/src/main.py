@@ -3,7 +3,7 @@
 from os import listdir
 from random import sample
 from re import match
-from gensim import downloader
+from gensim.models import KeyedVectors
 from numpy import ndarray
 import nltk
 
@@ -19,8 +19,8 @@ def main():
     print(words)
 
     for model in [
-        downloader.load("glove-wiki-gigaword-50"),
-        downloader.load("word2vec-google-news-300"),
+        KeyedVectors.load("./models/glove-wiki-gigaword-50.model", mmap="r"),
+        KeyedVectors.load("./models/word2vec-google-news-300.model", mmap="r"),
     ]:
         vectorized_words = vectorize(model, words)
         dimensions = pick_dimensions(vectorized_words)
