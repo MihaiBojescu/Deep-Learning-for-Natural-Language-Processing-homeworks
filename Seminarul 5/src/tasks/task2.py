@@ -4,7 +4,7 @@ from sklearn.decomposition import TruncatedSVD
 
 
 def task2(bow_matrix: ndarray, terms: ndarray):
-    model, matrix = run(bow_matrix, 5)
+    model, matrix = run(bow_matrix, 3)
     show(model, matrix, terms)
 
 

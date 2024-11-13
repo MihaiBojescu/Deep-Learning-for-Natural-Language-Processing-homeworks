@@ -4,7 +4,7 @@ from sklearn.decomposition import NMF
 
 
 def task3(bow_matrix: ndarray, terms: ndarray):
-    model, matrix = run(bow_matrix, 5)
+    model, matrix = run(bow_matrix, 3)
     show(model, matrix, terms)
 
 
@@ -19,7 +19,7 @@ def show(model: NMF, matrix: ndarray, terms: ndarray):
     print("NMF Topics")
     for i, topic in enumerate(model.components_):
         top_words = [terms[index] for index in topic.argsort()[-10:]]
-        print(f"NMF Topic {i+1}: {', '.join(top_words)}")
+        print(f"NMF Topic {i + 1}: {', '.join(top_words)}")
 
     print("NMF Matrix")
     print(matrix)
