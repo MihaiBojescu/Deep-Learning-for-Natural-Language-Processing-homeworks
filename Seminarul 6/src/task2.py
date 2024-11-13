@@ -1,5 +1,7 @@
 from gensim.models import KeyedVectors
 from numpy import dot, ndarray, linalg
+from matplotlib import pyplot as plt
+
 from util import vectorize
 
 
@@ -10,7 +12,7 @@ def task2():
         ("disk", "vinyl"),
         ("happiness", "sadness"),
         ("clothes", "apartments"),
-        ("country", "rock"),
+        ("pasta", "rock"),
         ("laptop", "door"),
     ]
 
@@ -23,21 +25,55 @@ def task2():
             tuple(vectorize(model, list(word_pair))) for word_pair in word_pairs
         ]
 
-        cosine_similarity(model_name, word_pairs, vectorized_word_pairs)
+        similarities = cosine_similarity(vectorized_word_pairs)
+        plot(model_name, word_pairs, similarities)
 
 
 def cosine_similarity(
-    model_name: str,
-    word_pairs: list[tuple[str, str]],
     vectorized_word_pairs: list[tuple[ndarray, ndarray]],
 ):
-    for word_pair, vectorized_word_pair in zip(word_pairs, vectorized_word_pairs):
+    results: list[float] = []
+
+    for vectorized_word_pair in vectorized_word_pairs:
         dot_product = dot(vectorized_word_pair[0], vectorized_word_pair[1])
         magnitude_1 = linalg.norm(vectorized_word_pair[0])
         magnitude_2 = linalg.norm(vectorized_word_pair[1])
 
-        cosine_similarity = dot_product / (magnitude_1 * magnitude_2)
+        similarity = dot_product / (magnitude_1 * magnitude_2)
 
+        results.append(similarity)
+
+    return results
+
+
+def plot(
+    model_name: str,
+    word_pairs: list[tuple[str, str]],
+    similarities: list[float],
+):
+    for word_pair, similarity in zip(word_pairs, similarities):
         print(
-            f"Cosine Similarity for word pair ({", ".join(word_pair)}) and model \"{model_name}\": {cosine_similarity:.5f}"
+            f'Cosine Similarity for word pair ({", ".join(word_pair)}) and model "{model_name}": {similarity:.5f}'
         )
+
+    xticks = ["\nand\n".join(word_pair) for word_pair in word_pairs]
+
+    plt.tight_layout()
+
+    fig = plt.figure()
+    fig.subplots_adjust(bottom=0.35)
+    ax = fig.add_subplot()
+
+    ax.bar(xticks, similarities)
+    ax.set_yticks([x / 10 for x in range(0, 11)])
+    ax.set_xticklabels(xticks, rotation=45, ha="right")
+    ax.set_xlabel("Word pair")
+    ax.set_ylabel("Similarity [0, 1]")
+    ax.set_title(f"Similarity between word pairs for model \"{model_name}\"")
+
+
+    fig.savefig(
+        f"./outputs/{model_name}_similarity_plot.png"
+    )
+    fig.show()
+    fig.waitforbuttonpress()
