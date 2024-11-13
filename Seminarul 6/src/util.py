@@ -52,15 +52,12 @@ def vectorize(model, words: list[str]) -> list[ndarray]:
     return result
 
 
-def pick_dimensions(vectorized_words, k=6):
+def pick_dimensions(vectorized_words, k=3):
     """
     Dimensions:
     - X
     - Y
     - Z
-    - Red
-    - Green
-    - Blue
     """
     return sample(range(0, vectorized_words[0].shape[0]), k=k)
 

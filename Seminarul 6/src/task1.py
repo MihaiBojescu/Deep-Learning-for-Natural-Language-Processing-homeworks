@@ -16,8 +16,8 @@ def plot_random_dimensions(
 
 
 def plot_pca(model_name: str, words: list[str], vectorized_words: list[ndarray]):
-    pca = PCA(n_components=6)
-    dimensions = range(0, 6)
+    pca = PCA(n_components=3)
+    dimensions = range(0, 3)
     stacked_vectorized_words = stack(vectorized_words)
 
     stacked_decomposed_vectorized_words = pca.fit_transform(stacked_vectorized_words)
@@ -27,8 +27,8 @@ def plot_pca(model_name: str, words: list[str], vectorized_words: list[ndarray])
 
 
 def plot_tsne(model_name: str, words: list[str], vectorized_words: list[ndarray]):
-    tsne = TSNE(n_components=6)
-    dimensions = range(0, 6)
+    tsne = TSNE(n_components=3, perplexity=6, random_state=0)
+    dimensions = range(0, 3)
     stacked_vectorized_words = stack(vectorized_words)
 
     stacked_decomposed_vectorized_words = tsne.fit_transform(stacked_vectorized_words)
@@ -44,13 +44,13 @@ def plot_common(
     vectorized_words: list[ndarray],
     dimensions: list[int],
 ):
-    xs, ys, zs, reds, greens, blues = tuple(
+    xs, ys, zs = tuple(
         array([vector[dimension] for vector in vectorized_words])
         for dimension in dimensions
     )
-    reds = scale_between_0_and_1(reds)
-    blues = scale_between_0_and_1(blues)
-    greens = scale_between_0_and_1(greens)
+    reds = scale_between_0_and_1(xs)
+    blues = scale_between_0_and_1(ys)
+    greens = scale_between_0_and_1(zs)
     colors = stack((reds, blues, greens), axis=-1)
 
     fig = plt.figure()
