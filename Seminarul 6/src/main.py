@@ -43,7 +43,7 @@ def pick_words(dataset: str, k=20):
         if matches is None or len(matches.groups()) != 1:
             continue
 
-        words.append(word)
+        words.append(matches[0])
 
     picked_words = choices(words, k=k)
     return picked_words
@@ -55,7 +55,7 @@ def vectorize(model, words: list[str]) -> list[ndarray]:
     for word in words:
         result.append(model[word])
 
-    return words
+    return result
 
 
 def pick_dimensions(vectorized_words, k=3):
