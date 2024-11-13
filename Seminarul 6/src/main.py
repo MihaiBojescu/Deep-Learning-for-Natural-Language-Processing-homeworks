@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
-from os import listdir
+from os import listdir, makedirs
 from random import sample
 from re import match
 from gensim.models import KeyedVectors
-from numpy import ndarray
+from numpy import array, min, max, ndarray, stack
+from matplotlib import pyplot as plt
 import nltk
 
 nltk.download("stopwords")
@@ -13,6 +14,8 @@ from nltk.corpus import stopwords
 
 
 def main():
+    make_dirs()
+
     dataset = read()
     words = pick_words(dataset, 20)
 
@@ -25,8 +28,11 @@ def main():
         vectorized_words = vectorize(model, words)
         dimensions = pick_dimensions(vectorized_words)
 
-        print(vectorized_words)
-        print(dimensions)
+        plot_random_dimensions(words, vectorized_words, dimensions)
+
+
+def make_dirs():
+    makedirs("./outputs", exist_ok=True)
 
 
 def read():
@@ -62,7 +68,10 @@ def vectorize(model, words: list[str]) -> list[ndarray]:
     result: list[ndarray] = []
 
     for word in words:
-        result.append(model[word])
+        try:
+            result.append(model[word])
+        except:
+            print(f"Unvectorizable word: {word}")
 
     return result
 
