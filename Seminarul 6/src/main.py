@@ -5,6 +5,11 @@ from random import sample
 from re import match
 from gensim import downloader
 from numpy import ndarray
+import nltk
+
+nltk.download("stopwords")
+
+from nltk.corpus import stopwords
 
 
 def main():
@@ -40,7 +45,11 @@ def pick_words(dataset: str, k=20):
     for word in dataset.lower().split(" "):
         matches = match(r"(\w+)", word)
 
-        if matches is None or len(matches.groups()) != 1:
+        if (
+            matches is None
+            or len(matches.groups()) != 1
+            or matches[0] in stopwords.words("english")
+        ):
             continue
 
         words.append(matches[0])
