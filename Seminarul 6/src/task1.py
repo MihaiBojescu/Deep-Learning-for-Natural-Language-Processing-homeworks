@@ -1,9 +1,38 @@
 from numpy import array, ndarray, stack
+from gensim.models import KeyedVectors
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from matplotlib import pyplot as plt
 
-from util import scale_between_0_and_1
+from util import (
+    make_dirs,
+    pick_dimensions,
+    pick_words,
+    read,
+    scale_between_0_and_1,
+    vectorize,
+)
+
+
+def task1():
+    make_dirs()
+
+    dataset = read()
+    words = pick_words(dataset, 20)
+
+    print(f"The words are: {", ".join(words)}.")
+
+    for model_name in [
+        "glove-wiki-gigaword-50",
+        "word2vec-google-news-300",
+    ]:
+        model = KeyedVectors.load(f"./models/{model_name}.model", mmap="r")
+        vectorized_words = vectorize(model, words)
+        dimensions = pick_dimensions(vectorized_words)
+
+        plot_random_dimensions(model_name, words, vectorized_words, dimensions)
+        plot_pca(model_name, words, vectorized_words)
+        plot_tsne(model_name, words, vectorized_words)
 
 
 def plot_random_dimensions(
