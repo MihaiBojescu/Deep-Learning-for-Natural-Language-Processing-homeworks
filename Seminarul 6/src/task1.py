@@ -56,7 +56,7 @@ def plot_pca(model_name: str, words: list[str], vectorized_words: list[ndarray])
 
 
 def plot_tsne(model_name: str, words: list[str], vectorized_words: list[ndarray]):
-    tsne = TSNE(n_components=3, perplexity=6, random_state=0)
+    tsne = TSNE(n_components=3, perplexity=3, random_state=0)
     dimensions = range(0, 3)
     stacked_vectorized_words = stack(vectorized_words)
 
