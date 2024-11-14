@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from gensim.models import KeyedVectors
 import nltk
 
 nltk.download("stopwords")
